@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+'''
+Asyinc coroutine
+'''
 import asyncio
 import random
 
