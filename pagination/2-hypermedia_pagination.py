@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 ''' find correct indices to paginate dataset or return empty list '''
 import csv
