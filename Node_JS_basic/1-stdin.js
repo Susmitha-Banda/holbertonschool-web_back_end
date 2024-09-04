@@ -13,7 +13,7 @@ console.log('Welcome to Holberton School, what is your name?');
 // Read the user input
 rl.question('', (name) => {
   // Display the user's name with a carriage return
-  console.log(`Your name is: ${name}\r`);
+  console.log(`Your name is: ${name}\r\n`);
   
   // Close the interface and display the closing message
   rl.close();
