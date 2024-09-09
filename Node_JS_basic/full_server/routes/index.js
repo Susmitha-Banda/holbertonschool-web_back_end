@@ -1,18 +1,19 @@
-// 8.4 Link the routes
-
 import express from 'express';
 import AppController from '../controllers/AppController';
-import StudentsController from '../controllers/StudentsController';
+import StudentController from '../controllers/StudentsController';
 
 const router = express.Router();
 
-// route '/'
-router.get('/', AppController.getHomepage);
+router.get('/', (req, res) => {
+  AppController.getHomepage(req, res);
+});
 
-// route '/students'
-router.get('/students', StudentsController.getAllStudents);
+router.get('/students', (req, res) => {
+  StudentController.getAllStudents(req, res, process.argv[2]);
+});
 
-// route '/students/:major' (corrected)
-router.get('/students/:major', StudentsController.getAllStudentsbyMajor);
+router.get('/students/:major', (req, res) => {
+  StudentController.getAllStudentsByMajor(req, res, process.argv[2]);
+});
 
-module.exports = router;
+export default router;

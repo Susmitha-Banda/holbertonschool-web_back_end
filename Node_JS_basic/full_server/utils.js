@@ -1,31 +1,32 @@
-const fs = require('node:fs/promises');
+// full_server/utils.js
 
-async function readDatabase(filePath) {
-  try {
-    const data = await fs.readFile(filePath, 'utf8');
-    const rows = data.split('\n').slice(1);
+const fs = require('fs');
 
-    const studentsCS = [];
-    const studentsSWE = [];
+function readDatabase(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        reject(Error(err));
+      } else {
+        const lines = data.trim().split('\n');
+        lines.shift(); // Supprimer l'en-tête
 
-    for (const row of rows) {
-      const columns = row.split(',');
+        const studentsByField = {};
 
-      if (columns[3] === 'CS') {
-        studentsCS.push(columns[0]);
+        for (const line of lines) {
+          const [firstname, , , field] = line.split(',');
+
+          if (!studentsByField[field]) {
+            studentsByField[field] = [firstname];
+          } else {
+            studentsByField[field].push(firstname);
+          }
+        }
+
+        resolve(studentsByField);
       }
-
-      if (columns[3] === 'SWE') {
-        studentsSWE.push(columns[0]);
-      }
-    }
-    return {
-      CS: studentsCS,
-      SWE: studentsSWE
-    };
-  } catch (err) {
-    throw new Error('Cannot load the database');
-  }
+    });
+  });
 }
 
-module.exports = readDatabase;
+export default readDatabase;
