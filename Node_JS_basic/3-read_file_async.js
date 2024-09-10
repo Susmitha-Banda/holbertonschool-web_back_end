@@ -1,8 +1,31 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
-module.exports = async function countStudents(path) {
+module.exports = async function countStudents(filename) {
   try {
-    const data = await fs.readFile(path, 'utf-8');
+    // const data = await fs.readFileSync(filename, 'utf-8');
+    // const rows = data.split('\n');
+    // let rowCount = 0;
+    // const sweNames = [];
+    // const csNames = [];
+
+    // for (const row of rows) {
+    //   rowCount += 1;
+
+    //   if (row.substring(row.length - 3) === 'SWE') {
+    //     sweNames.push(row.split(',')[0]);
+    //   }
+    //   if (row.substring(row.length - 2) === 'CS') {
+    //     csNames.push(row.split(',')[0]);
+    //   }
+    // }
+
+    // console.log(`Number of students: ${rowCount - 1}`);
+    // console.log(`Number of students in CS: ${csNames.length}. List: ${csNames.join(', ')}`);
+    // console.log(`Number of students in SWE: ${sweNames.length}. List: ${sweNames.join(', ')}`);
+
+    // ----- Old code that doesn't pass checker ends here ----
+
+    const data = await fs.readFileSync(filename, 'utf-8');
     const rows = data.split('\n').slice(1);
 
     const studentsCS = [];
@@ -11,12 +34,11 @@ module.exports = async function countStudents(path) {
     for (const row of rows) {
       const data = row.split(',');
 
-      // if field is CS add to CS array
-      if (data[3] === 'CS') {
+      if (data[3] === 'CS') { // hardcode
         studentsCS.push(data[0]);
       }
-      // if field is SWE add to SWE array
-      if (data[3] === 'SWE') {
+
+      if (data[3] === 'SWE') { // hardcode
         studentsSWE.push(data[0]);
       }
     }

@@ -10,6 +10,7 @@ function requestListener(req, res) {
 
 const app = http.createServer(requestListener);
 app.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}`);
 });
 
-module.exports = requestListener;
+module.exports = app;
